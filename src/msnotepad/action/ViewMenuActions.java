@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2021 Mohit Saini, Under MIT License. Use is subject to license terms.
+ * 
+ */
+
 package msnotepad.action;
 
 import java.awt.event.ActionEvent;
@@ -7,7 +12,7 @@ import javax.swing.KeyStroke;
 import javax.swing.JPanel;
 
 import msnotepad.gui.GUIHandler;
-import msnotepad.guihelper.NotepadStatusBar;
+import msnotepad.gui.helper.StatusBar;
 import msnotepad.init.InitialValues;
 
 public class ViewMenuActions {
@@ -44,7 +49,7 @@ public class ViewMenuActions {
             int zoomLevel = GUIHandler.getZoomValue();
             zoomLevel = zoomLevel + 10;
             GUIHandler.setZoomValue(zoomLevel);
-            NotepadStatusBar.setZoomLevel(zoomLevel);
+            StatusBar.setZoomLevel(zoomLevel);
         }
     }
 
@@ -60,7 +65,7 @@ public class ViewMenuActions {
             int zoomLevel = GUIHandler.getZoomValue();
             zoomLevel = zoomLevel - 10;
             GUIHandler.setZoomValue(zoomLevel);
-            NotepadStatusBar.setZoomLevel(zoomLevel);
+            StatusBar.setZoomLevel(zoomLevel);
         }
     }
 
@@ -74,7 +79,7 @@ public class ViewMenuActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUIHandler.setZoomValue(100);
-            NotepadStatusBar.setZoomLevel(100);
+            StatusBar.setZoomLevel(100);
         }
     }
 }

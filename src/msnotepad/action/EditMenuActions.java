@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2021 Mohit Saini, Under MIT License. Use is subject to license terms.
+ * 
+ */
+
 package msnotepad.action;
 
 import java.awt.event.ActionEvent;
@@ -7,8 +12,8 @@ import javax.swing.KeyStroke;
 import javax.swing.JTextArea;
 
 import msnotepad.gui.GUIHandler;
-import msnotepad.guihelper.FindAndReplaceDialog;
-import msnotepad.guihelper.DialogType;
+import msnotepad.gui.helper.DialogType;
+import msnotepad.gui.helper.FindAndReplaceDialog;
 
 public class EditMenuActions {
     

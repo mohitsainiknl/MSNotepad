@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2021 Mohit Saini, Under MIT License. Use is subject to license terms.
+ * 
+ */
+
 package msnotepad.action;
 
 import java.awt.event.ActionEvent;
@@ -12,7 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
 import msnotepad.gui.GUIHandler;
-import msnotepad.guihelper.OptionPane;
+import msnotepad.gui.helper.OptionPane;
 import msnotepad.init.InitialValues;
 
 public class FileMenuActions {

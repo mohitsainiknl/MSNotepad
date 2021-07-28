@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2021 Mohit Saini, Under MIT License. Use is subject to license terms.
+ * 
+ */
+
 package msnotepad.gui;
 
 import javax.swing.KeyStroke;
@@ -40,17 +45,21 @@ import msnotepad.action.FileMenuActions;
 import msnotepad.action.FormatMenuActions;
 import msnotepad.action.HelpMenuActions;
 import msnotepad.action.ViewMenuActions;
-import msnotepad.guihelper.NotepadStatusBar;
-import msnotepad.guihelper.OptionPane;
+import msnotepad.gui.helper.StatusBar;
+import msnotepad.gui.helper.OptionPane;
 import msnotepad.init.InitialValues;
 
+/**
+ * GUIHandler class handle the main gui functioning of the MSNotepad, this is the point of
+ * distribution of work to other classes.
+ */
 public class GUIHandler {
 	private static JFrame frame;
 	private static JScrollPane editorScrollPane;
 	private static JMenuBar menuBar;
 	private static JPanel mainPanel;
 	private static JTextArea editorTextArea;
-	private static NotepadStatusBar statusBar;
+	private static StatusBar statusBar;
 	private static AtomicBoolean isSaved = new AtomicBoolean(true);
 	private static AtomicBoolean isLoadingFile = new AtomicBoolean(false);
 
@@ -68,7 +77,11 @@ public class GUIHandler {
 
 	private static JMenuItem viewHelp, sendFeedback, aboutNotepad;
 
-	public GUIHandler() {
+	/**
+	 * handle method is help to setup the major components and getting the frame ready to
+	 * make it visible on the user screen.
+	 */
+	public void handle() {
 		frame = new JFrame() {
 			@Override
 			public void setTitle(String fileName) {
@@ -102,7 +115,7 @@ public class GUIHandler {
 		initialiseScrollPane();
 		frame.setJMenuBar(menuBar);
 		
-		statusBar = new NotepadStatusBar();
+		statusBar = new StatusBar();
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.add(editorScrollPane, BorderLayout.CENTER);
 		mainPanel.add(statusBar, BorderLayout.SOUTH);
@@ -112,49 +125,103 @@ public class GUIHandler {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-	
+
+
+	/**
+	 * getFrame is the getter of the frame.
+	 * @return the frame.
+	 */
 	public static JFrame getFrame() {
 		return frame;
 	}
-	
+
+
+	/**
+	 * getEditorTextArea method is the getter of main text-area.
+	 * @return the editorTextArea.
+	 */
 	public static JTextArea getEditorTextArea() {
 		return editorTextArea;
 	}
 
+
+	/**
+	 * getStatusBar methoad is the getter of statusBar.
+	 * @return the statusBar.
+	 */
 	public static JPanel getStatusBar() {
 		return statusBar;
 	}
 
+
+	/**
+	 * getSaveAsMenuItem method is the getter of saveAsFile.
+	 * @return the saveAsFile.
+	 */
 	public static JMenuItem getSaveAsMenuItem() {
 		return saveAsFile;
 	}
 
+
+	/**
+	 * getIsSaved method is the getter of isSaved variable.
+	 * @return the isSaved variable.
+	 */
 	public static boolean getIsSaved() {
 		return isSaved.get();
 	}
 
+
+	/**
+	 * setIsSave method is set the isSaved value the variable.
+	 * @param value the value of isSaved.
+	 */
 	public static void setIsSaved(boolean value) {
 		isSaved.set(value);
 		updateFrameTitle();
 	}
 
+
+	/**
+	 * setIsLoadingFile method is set the loading flag of the this app.
+	 * @param value loading flag.
+	 */
 	public static void setIsLoadingFile(boolean value) {
 		isLoadingFile.set(value);
 	}
 
+
+	/**
+	 * getZoomValue method is help to the zoomValue of the textArea.
+	 * @return the zoomLevel.
+	 */
 	public static int getZoomValue() {
 		return zoomLevel;
 	}
 
+
+	/**
+	 * setZoomValue method is help to set the zoom level of the editor textArea.
+	 * @param value the zoom level.
+	 */
 	public static void setZoomValue(int value) {
 		zoomLevel = value;
 		editorTextArea.setFont(InitialValues.getEditorFont());
 	}
 
+
+	/**
+	 * updateFrameTitle method is help to chanage the file name and unsaved mark
+	 * of the opened file.
+	 */
 	public static void updateFrameTitle() {
 		frame.setTitle(InitialValues.getFileName());
 	}
 
+
+	/**
+	 * initialiseScrollPane method is help to setup the text editor of the MSNotepad.
+	 */
 	private void initialiseScrollPane() {
 		editorTextArea = new JTextArea(){
 			@Override
@@ -243,8 +310,13 @@ public class GUIHandler {
 				statusBar.setCaretPosition(lineNum, columnNum);				
 			}
         });
- 
 	}
+
+
+	/**
+	 * doUpdateWork method is help to set enable/disable the edit action of the
+	 * text editor.
+	 */
 	private void doUpdateWork() {
 		undoEdit.setEnabled(false);
 		if(editorTextArea.getText().equals("")) {
@@ -257,6 +329,11 @@ public class GUIHandler {
 		}
 	}
 
+
+	/**
+	 * loadFileToEditor method is help to load/reload the file,
+	 * whose name is saved in InitialValues class.
+	 */
 	private void loadFileToEditor() {
 		setIsLoadingFile(true);
 		String path = InitialValues.getFilePath();
@@ -286,6 +363,11 @@ public class GUIHandler {
 		setIsLoadingFile(false);
 	}
 
+
+	/**
+	 * initialiseMenuBar method is help to initialise and setup the menubar
+	 * of this app, and also initialize the menus and their item in the menu.
+	 */
 	private void initialiseMenuBar() {
 		menuBar = new JMenuBar();
 		menuBar.setBorderPainted(false);
@@ -370,7 +452,12 @@ public class GUIHandler {
 
 		setRemainingMnemonicAndAccelerator();
 	}
-	
+
+
+	/**
+	 * setRemainingMnemonicAndAccelerator method is help to set the MnemonicKeys and
+	 * the Accelerator of the remaining items of the menus in the menubar.
+	 */
 	private void setRemainingMnemonicAndAccelerator() {
 
 		fileMenu.setMnemonic(KeyEvent.VK_F);

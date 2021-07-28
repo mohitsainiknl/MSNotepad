@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2021 Mohit Saini, Under MIT License. Use is subject to license terms.
+ * 
+ */
+
 package msnotepad.action;
 
 import java.awt.event.ActionEvent;
@@ -6,7 +11,7 @@ import java.net.URL;
 import javax.swing.AbstractAction;
 
 import msnotepad.gui.GUIHandler;
-import msnotepad.guihelper.AboutDialog;
+import msnotepad.gui.helper.AboutDialog;
 
 
 public class HelpMenuActions {
