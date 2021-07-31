@@ -12,9 +12,9 @@ import javax.swing.text.DefaultEditorKit;
  * ClipboardActions class handle the clipboard actions like- cut, copy, paste.
  */
 public class ClipboardActions {
-    private static Action cut = new DefaultEditorKit.CutAction();
-    private static Action copy = new DefaultEditorKit.CopyAction();
-    private static Action paste = new DefaultEditorKit.PasteAction();
+    private static final Action cut = new DefaultEditorKit.CutAction();
+    private static final Action copy = new DefaultEditorKit.CopyAction();
+    private static final Action paste = new DefaultEditorKit.PasteAction();
 
     /**
      * getCutAction method help to cut the text on the clipboard.

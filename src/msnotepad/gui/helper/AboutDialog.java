@@ -12,8 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,16 +26,14 @@ import java.awt.FlowLayout;
  * of string in the label.
  */
 public class AboutDialog extends JDialog{
-    private JButton okButton;
     private JLabel textLabel;
-    private JPanel labelHolder, buttonHolder;
 
     /**
-     * AboutDialog constuctor help to get the label which will represents
+     * AboutDialog constructor help to get the label which will represents
      * the about dialog and their parent component.
      * @param frame parent component.
      * @param title the title of the dialog.
-     * @param mobality dialog is moveable if this is TRUE.
+     * @param mobality dialog is movable if this is TRUE.
      */
     public AboutDialog(JFrame frame, String title, boolean mobality) {
         super(frame, title , mobality);
@@ -52,23 +48,18 @@ public class AboutDialog extends JDialog{
     private void initialiseDialog() {
         textLabel = new JLabel();
         textLabel.setVerticalAlignment(JLabel.NORTH);
-        okButton = new JButton("OK");
+        JButton okButton = new JButton("OK");
         okButton.setBackground(Color.BLUE.brighter());
 
-        labelHolder = new JPanel(new BorderLayout());
-        buttonHolder = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 12));
+        JPanel labelHolder = new JPanel(new BorderLayout());
+        JPanel buttonHolder = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 12));
         
         try {
             loadHTMLFile();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ee) {
-                dispose();
-            }
-        });
+        okButton.addActionListener(ee -> dispose());
         
         labelHolder.add(textLabel, BorderLayout.CENTER);
         buttonHolder.add(okButton);
@@ -85,15 +76,15 @@ public class AboutDialog extends JDialog{
     /**
      * loadHTMLFile method help to load the text, from the HTML file, in the
      * form of String.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException throw the Exception.
      */
     private void loadHTMLFile() throws FileNotFoundException {
-        StringBuffer text = new StringBuffer("");
+        StringBuilder text = new StringBuilder();
         {
-            File htmlFile = new File("AboutDailog.html");
+            File htmlFile = new File("AboutDialog.html");
             BufferedReader reader = new BufferedReader(new FileReader(htmlFile));
             
-            String holdText = "";
+            String holdText;
             try {
                 while ((holdText = reader.readLine()) != null) {
                     text.append(holdText);

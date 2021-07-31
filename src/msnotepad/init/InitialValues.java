@@ -16,20 +16,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 import msnotepad.gui.GUIHandler;
 
 /**
- * InitialValues class help to get the inital values of the MSNotepad, and,
+ * InitialValues class help to get the initial values of the MSNotepad, and,
  * also save these parameters in the "Settings.txt" file at the window close and
  * load these parameters again in the variables at the start.
  */
 public class InitialValues {
 	public static final String NEW_FILE = "Untitled";
-    private static AtomicBoolean showStatusBar = new AtomicBoolean(true);
-    private static AtomicBoolean wrapTheLine = new AtomicBoolean(false);
-	private static AtomicInteger frameWidth = new AtomicInteger(600);
-	private static AtomicInteger frameHeight = new AtomicInteger(450);
+    private static final AtomicBoolean showStatusBar = new AtomicBoolean(true);
+    private static final AtomicBoolean wrapTheLine = new AtomicBoolean(false);
+	private static final AtomicInteger frameWidth = new AtomicInteger(600);
+	private static final AtomicInteger frameHeight = new AtomicInteger(450);
+	private static final AtomicInteger caretPosition = new AtomicInteger(0);
 	private static Font editorFont = new Font("Consolas", Font.PLAIN, 14);
 	private static String fileName = NEW_FILE;
 	private static String filePath = null;
-	private static AtomicInteger caretPosition = new AtomicInteger(0);
 
 	/**
 	 * getShowStatusBar method is help to get the showStatusBar variable.
@@ -200,14 +200,14 @@ public class InitialValues {
 				String value = read.nextLine();
 				value = value.substring(value.indexOf(":") + 1);
 				value = value.trim();
-				showStatusBar.set(value.equals("true") ? true : false);
+				showStatusBar.set(value.equals("true"));
 			}
 			if(read.hasNextLine())
 			{
 				String value = read.nextLine();
 				value = value.substring(value.indexOf(":") + 1);
 				value = value.trim();
-				wrapTheLine.set(value.equals("true") ? true : false);
+				wrapTheLine.set(value.equals("true"));
 			}
 			if(read.hasNextLine())
 			{

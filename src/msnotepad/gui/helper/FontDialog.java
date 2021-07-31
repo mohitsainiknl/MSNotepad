@@ -13,8 +13,6 @@ import java.awt.FontMetrics;
 import java.awt.GraphicsEnvironment;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
@@ -47,12 +45,10 @@ import javax.swing.GroupLayout;
  */
 public class FontDialog extends JDialog implements ListSelectionListener {
     private static final int foregroundTextSize = 13;
-    private String fontNames[], fontStyleNames[], fontSizeNames[];
     private Parameter fontName, fontStyle, fontSize;
 
     private JLabel sampleLabel;
     private JPanel samplePanel;
-    private JViewport sampleViewport;
 
     private JButton okButton, cancelButton;
 
@@ -73,13 +69,13 @@ public class FontDialog extends JDialog implements ListSelectionListener {
     }
 
     /**
-     * initalizeFindDialog method is help to do the initial work and setup
+     * initializeFindDialog method is help to do the initial work and setup
      * the Dialog and their components.
      */
     private void initializeDialog() {
-        fontNames = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-        fontStyleNames = new String[] {"Roman", "Bold", "Italic", "Bold Italic"};
-        fontSizeNames = new String[] {"8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72"};
+        String[] fontNames = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        String[] fontStyleNames = new String[]{"Roman", "Bold", "Italic", "Bold Italic"};
+        String[] fontSizeNames = new String[]{"8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72"};
 
         fontName = new Parameter("Font", fontNames);
         fontStyle = new Parameter("Style", fontStyleNames);
@@ -111,7 +107,7 @@ public class FontDialog extends JDialog implements ListSelectionListener {
         };
         sampleLabel.setHorizontalAlignment(JLabel.CENTER);
         sampleLabel.setPreferredSize(new Dimension(1000, 70));
-        sampleViewport = new JViewport();
+        JViewport sampleViewport = new JViewport();
         sampleViewport.setView(sampleLabel);
         samplePanel = new JPanel(new BorderLayout());
         samplePanel.setBorder(new TitledBorder(new LineBorder(new Color(220, 220, 220), 1), "Sample"));
@@ -139,20 +135,12 @@ public class FontDialog extends JDialog implements ListSelectionListener {
 
         okButton = new JButton("OK");
         cancelButton = new JButton("Cancel");
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Font font = sampleLabel.getFont();
-                InitialValues.setEditorFont(new Font(font.getFamily(), font.getStyle(), font.getSize() - 5));
-                dispose();
-            }
+        okButton.addActionListener(e -> {
+            Font font = sampleLabel.getFont();
+            InitialValues.setEditorFont(new Font(font.getFamily(), font.getStyle(), font.getSize() - 5));
+            dispose();
         });
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        cancelButton.addActionListener(e -> dispose());
     }
 
 
@@ -220,15 +208,15 @@ public class FontDialog extends JDialog implements ListSelectionListener {
      */
     private void updateSample() {
         if(fontName.list.getSelectedValue() != null && fontStyle.list.getSelectedValue() != null ) {
-            String name = fontName.list.getSelectedValue().toString();
-            int size = 0;
+            String name = fontName.list.getSelectedValue();
+            int size;
             if(fontSize.list.getSelectedValue() != null) {
-                size = Integer.parseInt(fontSize.list.getSelectedValue().toString());
+                size = Integer.parseInt(fontSize.list.getSelectedValue());
             }
             else {
                 size = Integer.parseInt(fontSize.field.getText());
             }
-            String styleName = fontStyle.list.getSelectedValue().toString();
+            String styleName = fontStyle.list.getSelectedValue();
             int style = getStyleNum(styleName);
 
             sampleLabel.setFont(new Font(name, style, size));
@@ -242,16 +230,12 @@ public class FontDialog extends JDialog implements ListSelectionListener {
      * @return the int value of the Style.
      */
     private int getStyleNum(String styleName) {
-        if(styleName == "Roman")
-            return Font.PLAIN;
-        else if(styleName == "Bold")
-            return Font.BOLD;
-        else if(styleName == "Italic")
-            return Font.ITALIC;
-        else if(styleName == "Bold Italic")
-            return Font.BOLD + Font.ITALIC;
-        else
-            return Font.PLAIN;
+        return switch (styleName) {
+            case "Bold" -> Font.BOLD;
+            case "Italic" -> Font.ITALIC;
+            case "Bold Italic" -> Font.BOLD + Font.ITALIC;
+            default -> Font.PLAIN;
+        };
     }
 
     /**
@@ -280,27 +264,27 @@ public class FontDialog extends JDialog implements ListSelectionListener {
             String value = list.getSelectedValue().toString();
 
             if(e.getSource() == fontName.list) {
-                if(sampleLabel.getFont().getFamily() != value.toString()) {
-                    if(fontName.isCaretUpdated == false)
-                        fontName.field.setText(value.toString());
+                if(!sampleLabel.getFont().getFamily().equals(value)) {
+                    if(!fontName.isCaretUpdated)
+                        fontName.field.setText(value);
                     updateSample();
                 }
                 fontName.field.requestFocus();
                 fontName.field.selectAll();
             }
             else if(e.getSource() == fontStyle.list) {
-                if(sampleLabel.getFont().getStyle() != getStyleNum(value.toString())) {
-                    if(fontName.isCaretUpdated == false)
-                        fontStyle.field.setText(value.toString());
+                if(sampleLabel.getFont().getStyle() != getStyleNum(value)) {
+                    if(!fontName.isCaretUpdated)
+                        fontStyle.field.setText(value);
                     updateSample();
                 }
                 fontStyle.field.requestFocus();
                 fontStyle.field.selectAll();
             }
             else if(e.getSource() == fontSize.list) {
-                if((sampleLabel.getFont().getSize() - 5)!= Integer.parseInt(value.toString())) {
-                    if(fontName.isCaretUpdated == false)
-                        fontSize.field.setText(value.toString());
+                if((sampleLabel.getFont().getSize() - 5)!= Integer.parseInt(value)) {
+                    if(!fontName.isCaretUpdated)
+                        fontSize.field.setText(value);
                     updateSample();
                 }
                 fontSize.field.requestFocus();
@@ -327,7 +311,7 @@ public class FontDialog extends JDialog implements ListSelectionListener {
 
             label = new JLabel(name + " :");
             field = new JTextField(10);
-            list = new JList<String>(listArray);
+            list = new JList<>(listArray);
             scrollPane = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
             //------- Setting Values ---------------
@@ -340,7 +324,7 @@ public class FontDialog extends JDialog implements ListSelectionListener {
 
         public void setSelectedValue(String selectionName, boolean scroll) {
             list.setSelectedValue(selectionName, scroll);
-            field.setText(list.getSelectedValue().toString());
+            field.setText(list.getSelectedValue());
             field.selectAll();
         }
 
@@ -365,24 +349,25 @@ public class FontDialog extends JDialog implements ListSelectionListener {
         @Override
         public void caretUpdate(CaretEvent e) {
             String text = field.getText().toLowerCase();
-            if(tempText != text) {
+            if(!tempText.equals(text)) {
                 boolean isInList = false;
                 for (String string : listArray) {
                     string = string.toLowerCase();
-                    if(string.equals(text)) {
+                    if (string.equals(text)) {
                         isInList = true;
+                        break;
                     }
                 }
-                if(isInList == true) {
+                if(isInList) {
                     isCaretUpdated = true;
                     list.setSelectedValue(field.getText(), true);
                 }
                 else if(name.equals("Size")) {
                     try {
-                        String name = fontName.list.getSelectedValue().toString();
-                        String styleName = fontStyle.list.getSelectedValue().toString();
+                        String name = fontName.list.getSelectedValue();
+                        String styleName = fontStyle.list.getSelectedValue();
                         int style = getStyleNum(styleName);
-                        int size = 0;
+                        int size;
                         size = Integer.parseInt(text);
                         sampleLabel.setFont(new Font(name, style, size));
                         sampleLabel.repaint();
@@ -400,7 +385,7 @@ public class FontDialog extends JDialog implements ListSelectionListener {
     //========================== Inner Class FontCellRenderer =============================
 
     private class FontCellRenderer<E> implements ListCellRenderer<E> {
-        private boolean isFontName = true;
+        private final boolean isFontName;
 
         private FontCellRenderer(boolean isFontName) {
             this.isFontName = isFontName;
@@ -414,7 +399,7 @@ public class FontDialog extends JDialog implements ListSelectionListener {
                     super.paintComponent(g);
                     String text = (String) value;
                     Font font;
-                    if(isFontName == true) {
+                    if(isFontName) {
                         font = new Font(text, Font.PLAIN, foregroundTextSize + 2);
                     }
                     else {

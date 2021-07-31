@@ -24,13 +24,13 @@ import msnotepad.init.InitialValues;
  * help of the JPanel.
  */
 public class StatusBar extends JPanel{
-	private static JPanel blankPanel, labelHolder;
-	private static StatusBarLabel caretPosition;
+	private static JPanel blankPanel;
+    private static StatusBarLabel caretPosition;
     private static StatusBarLabel zoomLevel;
     private static StatusBarLabel encoding;
 
     /**
-     * StatusBar constuctor help to do the initial work.
+     * StatusBar constructor help to do the initial work.
      */
 	public StatusBar() {
         super();
@@ -91,8 +91,8 @@ public class StatusBar extends JPanel{
         blankPanel = new JPanel();
         blankPanel.setOpaque(false);
         blankPanel.setBackground(new Color(0, 0, 0, 0));
-        
-        labelHolder = new JPanel(new FlowLayout(1, 0, 0));
+
+        JPanel labelHolder = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         labelHolder.setOpaque(false);
         labelHolder.setBackground(new Color(0, 0, 0, 0));
 		
@@ -113,7 +113,7 @@ public class StatusBar extends JPanel{
      * StatusBarLabel inner class help to make label ready for to be
      * added on the statusBar panel.
      */
-    private class StatusBarLabel extends JLabel {
+    private static class StatusBarLabel extends JLabel {
         Font font = new Font("", Font.PLAIN , 12);
         
         private StatusBarLabel(String name,int width) {

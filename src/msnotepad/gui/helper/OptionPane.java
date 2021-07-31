@@ -18,31 +18,28 @@ import msnotepad.init.InitialValues;
  * OptionPane class help to make initial OptionPane for the MSNotepad.
  */
 public class OptionPane extends JOptionPane {
-    private static String[] options;
-    private static String message;
-    private static JLabel label;
 
 	/**
 	 * showOptionPane method show the optionPane as initialized in the class.
 	 * @return the response of the OptionPane.
 	 */
 	public static int showOptionPane() {
-		options = new String[] {"Don't Save", "Save", "Cancel"};
-		message = "Do you want to save changes to \"" + InitialValues.getFileName() + "\" ?";
+		String[] options = new String[]{"Don't Save", "Save", "Cancel"};
+		String message = "Do you want to save changes to \"" + InitialValues.getFileName() + "\" ?";
 
-		label = new JLabel(message);
+		JLabel label = new JLabel(message);
 		label.setBackground(Color.WHITE);
 		label.setFont(new Font("", Font.PLAIN, 14 + 2));
 		label.setForeground(new Color(0, 51, 153));
 
         return showOptionDialog(
 			GUIHandler.getFrame(),
-			label,
+				label,
 			"MyNotepad",
 			YES_NO_CANCEL_OPTION,
 			PLAIN_MESSAGE,
 			null,
-            options,
+				options,
             options[0]
 		);
 	}

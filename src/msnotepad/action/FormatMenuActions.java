@@ -27,7 +27,7 @@ public class FormatMenuActions {
         public void actionPerformed(ActionEvent e) {
             JTextArea area = GUIHandler.getEditorTextArea();
 
-            if (InitialValues.getWrapTheLine() == true) {
+            if (InitialValues.getWrapTheLine()) {
                 area.setLineWrap(false);
                 InitialValues.setWrapTheLine(false);
             } else {

@@ -29,11 +29,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.event.CaretListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
-import javax.swing.event.CaretEvent;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
@@ -60,22 +58,21 @@ public class GUIHandler {
 	private static JPanel mainPanel;
 	private static JTextArea editorTextArea;
 	private static StatusBar statusBar;
-	private static AtomicBoolean isSaved = new AtomicBoolean(true);
-	private static AtomicBoolean isLoadingFile = new AtomicBoolean(false);
+	private static final AtomicBoolean isSaved = new AtomicBoolean(true);
+	private static final AtomicBoolean isLoadingFile = new AtomicBoolean(false);
 
 	private static JMenu fileMenu, editMenu, formatMenu, viewMenu, helpMenu;
-	private static JMenuItem newFile, newWindowFile, openFile, saveFile, saveAsFile, exitFile;
-	private static JMenuItem undoEdit,cutEdit, copyEdit, pasteEdit,deleteEdit, findEdit, replaceEdit, selectAllEdit;
-
-	private static JCheckBoxMenuItem wordWrapFormat;
-	private static JMenuItem fontChangeFormat;
+	private static JMenuItem saveAsFile;
+	private static JMenuItem undoEdit;
+	private static JMenuItem cutEdit;
+	private static JMenuItem copyEdit;
+	private static JMenuItem pasteEdit;
+	private static JMenuItem findEdit;
+	private static JMenuItem replaceEdit;
 
 	private static JMenu zoomView;
 	private static int zoomLevel = 100;
-	private static JMenuItem zoomIn, zoomOut, defaultZoom;
 	public static JCheckBoxMenuItem statusBarView;
-
-	private static JMenuItem viewHelp, sendFeedback, aboutNotepad;
 
 	/**
 	 * handle method is help to setup the major components and getting the frame ready to
@@ -94,7 +91,7 @@ public class GUIHandler {
 		frame.addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent e) {
-				if(GUIHandler.getIsSaved() == false) {
+				if(!GUIHandler.getIsSaved()) {
 					int value = OptionPane.showOptionPane();
 					if(value == 1) {
 						GUIHandler.getSaveAsMenuItem().doClick();
@@ -146,7 +143,7 @@ public class GUIHandler {
 
 
 	/**
-	 * getStatusBar methoad is the getter of statusBar.
+	 * getStatusBar method is the getter of statusBar.
 	 * @return the statusBar.
 	 */
 	public static JPanel getStatusBar() {
@@ -211,7 +208,7 @@ public class GUIHandler {
 
 
 	/**
-	 * updateFrameTitle method is help to chanage the file name and unsaved mark
+	 * updateFrameTitle method is help to change the file name and unsaved mark
 	 * of the opened file.
 	 */
 	public static void updateFrameTitle() {
@@ -256,32 +253,28 @@ public class GUIHandler {
 		}
 
 		doUpdateWork();
-		editorTextArea.addCaretListener(new CaretListener() {
-
-			@Override
-			public void caretUpdate(CaretEvent e) {
-				if(editorTextArea.getSelectedText() == null){
-					cutEdit.setEnabled(false);
-					copyEdit.setEnabled(false);
-				}
-				else {
-					cutEdit.setEnabled(true);
-					copyEdit.setEnabled(true);
-				}
+		editorTextArea.addCaretListener(e -> {
+			if(editorTextArea.getSelectedText() == null){
+				cutEdit.setEnabled(false);
+				copyEdit.setEnabled(false);
+			}
+			else {
+				cutEdit.setEnabled(true);
+				copyEdit.setEnabled(true);
 			}
 		});
 		editorTextArea.getDocument().addDocumentListener(new DocumentListener() {
 	
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				if(isLoadingFile.get() == false) {
+				if(!isLoadingFile.get()) {
 					setIsSaved(false);
 				}
 				doUpdateWork();
 			}
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				if(isLoadingFile.get() == false) {
+				if(!isLoadingFile.get()) {
 					setIsSaved(false);
 				}
 				doUpdateWork();
@@ -290,26 +283,23 @@ public class GUIHandler {
 			public void changedUpdate(DocumentEvent arg0) {}
 		});
 		
-		editorTextArea.addCaretListener(new CaretListener() {
-			@Override
-			public void caretUpdate(CaretEvent e) {
+		editorTextArea.addCaretListener(e -> {
 
-				JTextArea editorArea = (JTextArea) e.getSource();
-				int lineNum = 1;
-				int columnNum = 1;
+			JTextArea editorArea = (JTextArea) e.getSource();
+			int lineNum = 1;
+			int columnNum = 1;
 
-				int caretPosition = 1;
-				try {
-					caretPosition = editorArea.getCaretPosition();
-					lineNum = editorArea.getLineOfOffset(caretPosition);
-					columnNum = caretPosition - editorArea.getLineStartOffset(lineNum);
+			int caretPosition;
+			try {
+				caretPosition = editorArea.getCaretPosition();
+				lineNum = editorArea.getLineOfOffset(caretPosition);
+				columnNum = caretPosition - editorArea.getLineStartOffset(lineNum);
 
-				} catch (BadLocationException ee) {
-					ee.printStackTrace();
-				}	
-				statusBar.setCaretPosition(lineNum, columnNum);				
+			} catch (BadLocationException ee) {
+				ee.printStackTrace();
 			}
-        });
+			statusBar.setCaretPosition(lineNum, columnNum);
+		});
 	}
 
 
@@ -338,11 +328,11 @@ public class GUIHandler {
 		setIsLoadingFile(true);
 		String path = InitialValues.getFilePath();
 		File file = new File(path);
-		String fileText = "";
+		StringBuilder fileText = new StringBuilder();
 		try {
 			Scanner fileReader = new Scanner(file);
 			while(fileReader.hasNextLine()) {
-				fileText = fileText + fileReader.nextLine() + "\n";
+				fileText.append(fileReader.nextLine()).append("\n");
 			}
 			fileReader.close();
 			setIsSaved(true);
@@ -365,7 +355,7 @@ public class GUIHandler {
 
 
 	/**
-	 * initialiseMenuBar method is help to initialise and setup the menubar
+	 * initialiseMenuBar method is help to initialise and setup the menu bar
 	 * of this app, and also initialize the menus and their item in the menu.
 	 */
 	private void initialiseMenuBar() {
@@ -387,12 +377,12 @@ public class GUIHandler {
 	}
 	
 	private void initialiseMenuItems() {
-		newFile = new JMenuItem(new FileMenuActions.NewFileAction());
-		newWindowFile = new JMenuItem(new FileMenuActions.NewWindowFileAction());
-		openFile = new JMenuItem(new FileMenuActions.OpenFileAction());
-		saveFile = new JMenuItem(new FileMenuActions.SaveFileAction());
+		JMenuItem newFile = new JMenuItem(new FileMenuActions.NewFileAction());
+		JMenuItem newWindowFile = new JMenuItem(new FileMenuActions.NewWindowFileAction());
+		JMenuItem openFile = new JMenuItem(new FileMenuActions.OpenFileAction());
+		JMenuItem saveFile = new JMenuItem(new FileMenuActions.SaveFileAction());
 		saveAsFile = new JMenuItem(new FileMenuActions.SaveAsFileAction());
-		exitFile = new JMenuItem(new FileMenuActions.ExitFileAction());
+		JMenuItem exitFile = new JMenuItem(new FileMenuActions.ExitFileAction());
 		fileMenu.add(newFile);
 		fileMenu.add(newWindowFile);
 		fileMenu.addSeparator();
@@ -407,10 +397,10 @@ public class GUIHandler {
 		copyEdit = new JMenuItem(ClipboardActions.getCopyAction());
 		pasteEdit = new JMenuItem(ClipboardActions.getPasteAction());
 		undoEdit = new JMenuItem(new EditMenuActions.UndoEditAction());
-		deleteEdit = new JMenuItem(new EditMenuActions.DeleteEditAction());
+		JMenuItem deleteEdit = new JMenuItem(new EditMenuActions.DeleteEditAction());
 		findEdit = new JMenuItem(new EditMenuActions.FindEditAction());
 		replaceEdit = new JMenuItem(new EditMenuActions.ReplaceEditAction());
-		selectAllEdit = new JMenuItem(new EditMenuActions.SelectAllEditAction());
+		JMenuItem selectAllEdit = new JMenuItem(new EditMenuActions.SelectAllEditAction());
 		editMenu.add(undoEdit);
 		editMenu.addSeparator();
 		editMenu.add(cutEdit);
@@ -422,10 +412,10 @@ public class GUIHandler {
 		editMenu.addSeparator();
 		editMenu.add(deleteEdit);
 		editMenu.add(selectAllEdit);
-		
-		wordWrapFormat = new JCheckBoxMenuItem(new FormatMenuActions.WordWrapFormatAction());
+
+		JCheckBoxMenuItem wordWrapFormat = new JCheckBoxMenuItem(new FormatMenuActions.WordWrapFormatAction());
 		wordWrapFormat.setState(InitialValues.getWrapTheLine());
-		fontChangeFormat = new JMenuItem(new FormatMenuActions.FontChangeFormatAction());
+		JMenuItem fontChangeFormat = new JMenuItem(new FormatMenuActions.FontChangeFormatAction());
 		formatMenu.add(wordWrapFormat);
 		formatMenu.add(fontChangeFormat);
 		
@@ -435,17 +425,17 @@ public class GUIHandler {
 		viewMenu.add(zoomView);
 		viewMenu.add(statusBarView);
 
-		viewHelp = new JMenuItem(new HelpMenuActions.ViewHelpAction());
-		sendFeedback = new JMenuItem(new HelpMenuActions.SendFeedbackAction());
-		aboutNotepad = new JMenuItem(new HelpMenuActions.AboutNotepadAction());
+		JMenuItem viewHelp = new JMenuItem(new HelpMenuActions.ViewHelpAction());
+		JMenuItem sendFeedback = new JMenuItem(new HelpMenuActions.SendFeedbackAction());
+		JMenuItem aboutNotepad = new JMenuItem(new HelpMenuActions.AboutNotepadAction());
 		helpMenu.add(viewHelp);
 		helpMenu.add(sendFeedback);
 		helpMenu.addSeparator();
 		helpMenu.add(aboutNotepad);
-		
-		zoomIn = new JMenuItem(new ViewMenuActions.ZoomInAction());
-		zoomOut = new JMenuItem(new ViewMenuActions.ZoomOutAction());
-		defaultZoom = new JMenuItem(new ViewMenuActions.DefaultZoomAction());
+
+		JMenuItem zoomIn = new JMenuItem(new ViewMenuActions.ZoomInAction());
+		JMenuItem zoomOut = new JMenuItem(new ViewMenuActions.ZoomOutAction());
+		JMenuItem defaultZoom = new JMenuItem(new ViewMenuActions.DefaultZoomAction());
 		zoomView.add(zoomIn);
 		zoomView.add(zoomOut);
 		zoomView.add(defaultZoom);
@@ -456,7 +446,7 @@ public class GUIHandler {
 
 	/**
 	 * setRemainingMnemonicAndAccelerator method is help to set the MnemonicKeys and
-	 * the Accelerator of the remaining items of the menus in the menubar.
+	 * the Accelerator of the remaining items of the menus in the menu bar.
 	 */
 	private void setRemainingMnemonicAndAccelerator() {
 

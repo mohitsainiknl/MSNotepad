@@ -27,7 +27,7 @@ public class ViewMenuActions {
         public void actionPerformed(ActionEvent e) {
             JPanel statusBar = GUIHandler.getStatusBar();
           
-            if (InitialValues.getShowStatusBar() == true) {
+            if (InitialValues.getShowStatusBar()) {
                 statusBar.setVisible(false);
                 InitialValues.setShowStatusBar(false);
             } else {

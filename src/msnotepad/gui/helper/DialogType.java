@@ -7,7 +7,7 @@ package msnotepad.gui.helper;
 
 /**
  * DialogType enumeration help to specify the type of dialog
- * according to the app requirnment.
+ * according to the app requirement.
  */
 public enum DialogType {
     FIND_ONLY,

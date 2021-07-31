@@ -31,7 +31,7 @@ public class FileMenuActions {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(GUIHandler.getIsSaved() == false) {
+            if(!GUIHandler.getIsSaved()) {
                 int value = OptionPane.showOptionPane();
 
                 if(value == 1) {
@@ -39,9 +39,6 @@ public class FileMenuActions {
                 } 
                 else if(value == 2) {
                     return;
-                }
-                else {
-                    // This is don't save option block
                 }
             }
             GUIHandler.setIsLoadingFile(true);

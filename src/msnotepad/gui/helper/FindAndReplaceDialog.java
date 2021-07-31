@@ -35,8 +35,8 @@ import msnotepad.gui.GUIHandler;
 
 
 /**
- * FindAndReplaceDialog class handle both type of dialog, wheather it is
- * Find-Dialog or is Replace-Dialog (by making saparate inner classes for both
+ * FindAndReplaceDialog class handle both type of dialog, whether it is
+ * Find-Dialog or is Replace-Dialog (by making separate inner classes for both
  * the Dialog).
  */
 public class FindAndReplaceDialog {
@@ -56,19 +56,17 @@ public class FindAndReplaceDialog {
      * FindDialog inner class handle the Finding part of the MSNotepad.
      */
     private static class FindDialog extends JDialog implements ActionListener {
-        private JLabel findLabel;
         private JTextField findField;
         private JButton findButton, cancelButton;
-        private ButtonGroup directionGroup;
-        private JRadioButton upRadioButton, downRadioButton;
-        private JCheckBox caseCheckBox, wrapCheckBox;
+        private JRadioButton downRadioButton;
+        private JCheckBox caseCheckBox;
         private int lastLoc = GUIHandler.getEditorTextArea().getCaretPosition();
 
         /**
-         * FindDialog constuctor help to specify the parent component and mobality
+         * FindDialog constructor help to specify the parent component and mobality
          * of the FindDialog.
          * @param frame the parent component.
-         * @param mobality the dialog is moveable if it is TRUE.
+         * @param mobality the dialog is movable if it is TRUE.
          */
         public FindDialog(JFrame frame, boolean mobality) {
             super(frame,"Find", mobality);
@@ -83,11 +81,11 @@ public class FindAndReplaceDialog {
         }
 
         /**
-         * initalizeFindDialog method is help to initialize and setup
+         * initializeFindDialog method is help to initialize and setup
          * the FindDialog.
          */
         private void initializeFindDialog() {
-            findLabel = new JLabel("Find What :");
+            JLabel findLabel = new JLabel("Find What :");
             findField = new JTextField(19);
             findLabel.setLabelFor(findField);
             {
@@ -102,16 +100,16 @@ public class FindAndReplaceDialog {
     
             findButton = new JButton("Find Next");
             cancelButton = new JButton("Cancel");
-    
-            directionGroup = new ButtonGroup();
-            upRadioButton = new JRadioButton("Up");
+
+            ButtonGroup directionGroup = new ButtonGroup();
+            JRadioButton upRadioButton = new JRadioButton("Up");
             downRadioButton = new JRadioButton("Down");
             directionGroup.add(upRadioButton);
             directionGroup.add(downRadioButton);
             downRadioButton.setSelected(true);
 
             caseCheckBox = new JCheckBox("Match Case");
-            wrapCheckBox = new JCheckBox("Wrap Around");
+            JCheckBox wrapCheckBox = new JCheckBox("Wrap Around");
     
             //----------- Setting Up Layout ----------------
     
@@ -214,24 +212,14 @@ public class FindAndReplaceDialog {
                 }
             });
             findButton.addActionListener(this);
-            cancelButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    dispose();
-                }
-            });
+            cancelButton.addActionListener(e -> dispose());
         }
 
         /**
          * enableButtons method check and enable buttons accordingly.  
          */
         private void enableButtons() {  //<-------------  Enable and Disable Required Buttons
-            if(findField.getText().equals("")) {
-                findButton.setEnabled(false);
-            }
-            else {
-                findButton.setEnabled(true);
-            }
+            findButton.setEnabled(!findField.getText().equals(""));
         }
 
         @Override
@@ -243,11 +231,11 @@ public class FindAndReplaceDialog {
         }
 
         /**
-         * findNext method is help to find the next occurance as entered.
+         * findNext method is help to find the next occurrence as entered.
          * @param parent the parent component.
          * @param lastLoc the location of the select end.
          * @param text the text we need to find.
-         * @param matchCase the case sencitivity.
+         * @param matchCase the case sensitivity.
          * @param isDownDirection the direction of checking.
          * @param showOptPane show optionPane in last if TRUE.
          * @return the location of which the text, if found, otherwise -1.
@@ -258,15 +246,15 @@ public class FindAndReplaceDialog {
             int fileLength = file.length();
             boolean isFind = false;
             
-            if(isDownDirection == true)
+            if(isDownDirection)
             {
                 if(textArea.getSelectedText() != null) {
                     lastLoc = textArea.getSelectionEnd();
                 }
                 for(int i = lastLoc; i <= fileLength; ++i) {
                     if((i + text.length()) <= fileLength) {
-                        if(matchCase == true) {
-                            if(file.substring(i, i + text.length()) .equals(text)) {
+                        if(matchCase) {
+                            if(file.startsWith(text, i)) {
                                 isFind = true;
                                 lastLoc = i;
                                 textArea.select(i, i + text.length());
@@ -284,7 +272,6 @@ public class FindAndReplaceDialog {
                     }
                     //i = file.lastIndexOf(text, lastLoc);  //<---- WE CAN ALSO USE THIS
                     else {
-                        isFind = false;
                         break;
                     }
                 }
@@ -292,8 +279,8 @@ public class FindAndReplaceDialog {
             else {
                 for(int i = lastLoc; i >= 0; --i) {
                     if((i - text.length()) >= 0) {
-                        if(matchCase == true) {
-                            if(file.substring(i - text.length(), i) .equals(text)) {
+                        if(matchCase) {
+                            if(file.startsWith(text, i - text.length())) {
                                 isFind = true;
                                 lastLoc = i - text.length();
                                 textArea.select(i - text.length(), i);
@@ -311,16 +298,15 @@ public class FindAndReplaceDialog {
                     }
                     //i = file.lastIndexOf(text, lastLoc);  //<---- WE CAN ALSO USE THIS
                     else {
-                        isFind = false;
                         break;
                     }
                 }
             }
-            if(isFind == true) {
+            if(isFind) {
                 return lastLoc;
             }
             else {
-                if(showOptPane == true) {
+                if(showOptPane) {
                     String message = "<HTML>Can not find <b>\"" + text + "\"</b> in the file.";
                     JOptionPane.showMessageDialog(parent, message, "MyNotepad", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -338,18 +324,17 @@ public class FindAndReplaceDialog {
      * ReplaceDialog inner class handle the Replacing part of the Edit menu.
      * It also use some method of the Find Dialog.
      */
-    private class ReplaceDialog extends JDialog implements ActionListener {
-        private JLabel findLabel, replaceLabel;
+    private static class ReplaceDialog extends JDialog implements ActionListener {
         private JTextField findField, replaceField;
         private JButton findButton,replaceButton, replaceAllButton, cancelButton;
-        private JCheckBox caseCheckBox, wrapCheckBox;
+        private JCheckBox caseCheckBox;
         private int lastLoc = GUIHandler.getEditorTextArea().getCaretPosition();
 
         /**
          * ReplaceDialog Constructor get the parent component and mobality
-         * and set it to the JDialog. And Then, call the initial methoads.
-         * @param frame
-         * @param mobality
+         * and set it to the JDialog. And Then, call the initial methods.
+         * @param frame the main frame.
+         * @param mobality the mobality.
          */
         public ReplaceDialog(JFrame frame, boolean mobality) {
             super(frame, "Replace", mobality);
@@ -365,11 +350,11 @@ public class FindAndReplaceDialog {
         }
 
         /**
-         * initalizeFindDialog method is help to initialize and setup the
+         * initializeFindDialog method is help to initialize and setup the
          * components of the ReplaceDialog.
          */
         private void initializeFindDialog() {
-            findLabel = new JLabel("Find What :");
+            JLabel findLabel = new JLabel("Find What :");
             findField = new JTextField(19);
             findLabel.setLabelFor(findField);
             {
@@ -382,7 +367,7 @@ public class FindAndReplaceDialog {
                 }
             }
 
-            replaceLabel = new JLabel("Replace With :");
+            JLabel replaceLabel = new JLabel("Replace With :");
             replaceField = new JTextField(19);
             replaceLabel.setLabelFor(replaceField);
 
@@ -392,7 +377,7 @@ public class FindAndReplaceDialog {
             replaceAllButton = new JButton("Replace All");
     
             caseCheckBox = new JCheckBox("Match Case");
-            wrapCheckBox = new JCheckBox("Wrap Around");
+            JCheckBox wrapCheckBox = new JCheckBox("Wrap Around");
     
             //----------- Setting Up Layout ----------------
     
@@ -502,24 +487,9 @@ public class FindAndReplaceDialog {
                 }
             });
             findButton.addActionListener(this);
-            replaceButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    replaceAction();
-                }
-            });
-            replaceAllButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    replaceAllAction();
-                }
-            });
-            cancelButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    dispose();
-                }
-            });
+            replaceButton.addActionListener(e -> replaceAction());
+            replaceAllButton.addActionListener(e -> replaceAllAction());
+            cancelButton.addActionListener(e -> dispose());
         }
 
         /**
