@@ -26,6 +26,7 @@ There is an interesting fact about this window/dialog. This Window is made up wi
 ![Screenshot of Default Settings.txt file ](/res/.readme/msnotepad_settings.png)
 
 MSNotepad writes the settings of the application in the `Settings.txt` file, before closing the application. And load it again at the starting of the application. If MSNotepad not find any `Settings.txt` file (or this file is corrupted), then, the default settings will work as shown in the image above.
+  <br>
 
 ---
 ## Technical Details :
