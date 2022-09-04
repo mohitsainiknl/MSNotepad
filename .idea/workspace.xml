@@ -5,9 +5,64 @@
       <artifact name="MyNotepad:jar" />
     </artifacts-to-build>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cd739bde-ad3f-4999-8363-51ddc36f6bc9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyNotepad.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MyNotepad.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/MainLauncher.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/ClipboardActions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/EditMenuActions$DeleteEditAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/EditMenuActions$FindEditAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/EditMenuActions$ReplaceEditAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/EditMenuActions$SelectAllEditAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/EditMenuActions$UndoEditAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/EditMenuActions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/FileMenuActions$ExitFileAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/FileMenuActions$NewFileAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/FileMenuActions$NewWindowFileAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/FileMenuActions$OpenFileAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/FileMenuActions$SaveAsFileAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/FileMenuActions$SaveFileAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/FileMenuActions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/FormatMenuActions$FontChangeFormatAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/FormatMenuActions$WordWrapFormatAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/FormatMenuActions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/HelpMenuActions$AboutNotepadAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/HelpMenuActions$SendFeedbackAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/HelpMenuActions$ViewHelpAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/HelpMenuActions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/ViewMenuActions$DefaultZoomAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/ViewMenuActions$StatusBarViewAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/ViewMenuActions$ZoomInAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/ViewMenuActions$ZoomOutAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/action/ViewMenuActions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/GUIHandler$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/GUIHandler$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/GUIHandler$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/GUIHandler$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/GUIHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/AboutDialog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/DialogType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FindAndReplaceDialog$FindDialog$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FindAndReplaceDialog$FindDialog$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FindAndReplaceDialog$FindDialog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FindAndReplaceDialog$ReplaceDialog$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FindAndReplaceDialog$ReplaceDialog$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FindAndReplaceDialog$ReplaceDialog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FindAndReplaceDialog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FontDialog$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FontDialog$FontCellRenderer$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FontDialog$FontCellRenderer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FontDialog$Parameter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/FontDialog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/OptionPane.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/StatusBar$StatusBarLabel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/gui/helper/StatusBar.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/msnotepad/init/InitialValues.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +71,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1vwLroWBILmjN9279KuawxqqAze" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -30,7 +93,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="xslt.associations" />
   </component>
   <component name="RunManager">
     <configuration name="MainLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -93,5 +156,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="some updates" />
     <option name="LAST_COMMIT_MESSAGE" value="some updates" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="MyNotepad" type="b2602c69:ProjectViewProjectNode" />
+        <item name="MSNotepad" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
   </component>
 </project>

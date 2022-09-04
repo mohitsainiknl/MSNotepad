@@ -23,7 +23,18 @@ Both these windows are made up using `GridBagLayout` as the `LayoutManager`. And
 There is an interesting fact about this window/dialog. This Window is made up with a HTML file, named as `AboutDialog.html`. And this html code rendered by `JLabel` String renderer and initially formated and handled by the `AboutDialog` class, which is located at `src/msnotepad/gui/helper/AboutDialog.java`.
 
 ### Settings File :
-![Screenshot of Default Settings.txt file ](/res/.readme/msnotepad_settings.png)
+```css
+Show-StatusBar : true
+Wrap-The-Line : false
+Frame-Width : 600
+Frame-Height : 450
+Font-Family : Dialog
+Font-Style : 0
+Font-Size : 14
+Opened-File-Name : Untitled
+Opened-File-Path : null
+Caret-Position : 0
+```
 
 MSNotepad writes the settings of the application in the `Settings.txt` file, before closing the application. And load it again at the starting of the application. If MSNotepad not find any `Settings.txt` file (or this file is corrupted), then, the default settings will work as shown in the image above.
   <br>

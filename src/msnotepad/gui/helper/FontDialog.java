@@ -230,12 +230,12 @@ public class FontDialog extends JDialog implements ListSelectionListener {
      * @return the int value of the Style.
      */
     private int getStyleNum(String styleName) {
-        return switch (styleName) {
-            case "Bold" -> Font.BOLD;
-            case "Italic" -> Font.ITALIC;
-            case "Bold Italic" -> Font.BOLD + Font.ITALIC;
-            default -> Font.PLAIN;
-        };
+        switch (styleName.toString()) {
+            case "Bold" : return Font.BOLD;
+            case "Italic" : return Font.ITALIC;
+            case "Bold Italic" : return Font.BOLD + Font.ITALIC;
+            default : return Font.PLAIN;
+        }
     }
 
     /**

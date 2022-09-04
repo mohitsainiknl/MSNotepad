@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"msnotepad"},{"l":"msnotepad.action"},{"l":"msnotepad.gui"},{"l":"msnotepad.gui.helper"},{"l":"msnotepad.init"}];updateSearchResults();

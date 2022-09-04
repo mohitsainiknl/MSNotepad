@@ -1,0 +1,10 @@
+Show-StatusBar : true
+Wrap-The-Line : false
+Frame-Width : 600
+Frame-Height : 450
+Font-Family : Dialog
+Font-Style : 0
+Font-Size : 14
+Opened-File-Name : Untitled
+Opened-File-Path : null
+Caret-Position : 0
