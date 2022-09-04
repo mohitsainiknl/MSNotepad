@@ -3,8 +3,10 @@ Give a :star: if you *like it!*<br>
 <br>
 ![Screenshot of MSNotepad ](/res/.readme/msnotepad_home.png)
 
+<br>
+
 ## Overview :
-MSNotepad is a simple text editor, with cross platform support, and a basic text-editing program which enables computer users to create documents. It is light-weight editor which entirely looks like *Microsoft Windows' Notepad*. Moreover, it is a beginner-friendly java swing project, with proper [documentation](https://github.com/mohitsainiknl/MSNotepad/tree/master/documentation) and directory structure.
+MSNotepad is a simple text editor, with cross platform support, and a basic text-editing program which enables computer users to create documents. It is light-weight editor which entirely looks like *Microsoft Windows' Notepad*. Moreover, it is a beginner-friendly java swing project, with proper documentation and directory structure.
 
 ### Font Window :
 ![Screenshot of Font Window ](/res/.readme/msnotepad_font.png)
@@ -38,16 +40,18 @@ Caret-Position : 0
 
 MSNotepad writes the settings of the application in the `Settings.txt` file, before closing the application. And load it again at the starting of the application. If MSNotepad not find any `Settings.txt` file (or this file is corrupted), then, the default settings will work as shown in the image above.
   <br>
+<br>
+<br>
 
 ---
 ## Technical Details :
 
 - **Full Setup Size :** 2.21 MB
 - **Programming Language :** Java (JavaSE)
-- **Interface :** Graphical User Interface
 - **Framework Used :** AWT and Swing
   <br>
   <br>
+<br>
 
 
 
@@ -55,14 +59,25 @@ MSNotepad writes the settings of the application in the `Settings.txt` file, bef
 ## System Requirements :
 
 - **Operating System :** Any (Platform Independent)
-- **JRE version :** 8.0 or higher
-- **Development Environment :** VS Code, Eclipse, IntelliJ IDEA, etc
+- **JRE version :** 1.8.0 or higher
+- **Development Environment :** VS Code, Eclipse, IntelliJ IDEA
   <br>
   <br>
+<br>
 
 ---
-## Download :
+## Downloads : 
+#### 1. Entire Repository
 https://github.com/mohitsainiknl/MSNotepad/archive/refs/heads/master.zip
+<br>
+
+#### 2. JAR File (Executable)
+https://github.com/mohitsainiknl/MSNotepad/blob/master/publish/MSNotepad.jar
+<br>
+
+#### 3. .exe File for Windows (not independent, require JRE to run)
+https://github.com/mohitsainiknl/MSNotepad/blob/master/publish/MSNotepad.exe
+<br>
 <br>
 <br>
 
